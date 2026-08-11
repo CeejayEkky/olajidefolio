@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oyindamola Olajide — Medical Virtual Assistant</title>
+<meta name="description" content="Oyindamola Adesola Olajide — Reliable, fast, HIPAA-aware Medical Virtual Assistant. Patient intake, scheduling, data analysis, and secure communication support.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --cream: #F6F1E6;
+    --cream-alt: #EFE7D6;
+    --cream-line: #DCD1B9;
+    --navy: #1C2A42;
+    --navy-dark: #121C2E;
+    --lilac: #C3AEDE;
+    --lilac-dark: #A98FC9;
+    --black: #191815;
+    --black-soft: #514E47;
+    --max-w: 1120px;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--cream);
+    color: var(--black);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,h2,h3,.eyebrow{
+    font-family: 'Fraunces', Georgia, serif;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+
+  img{ max-width:100%; display:block; }
+
+  .wrap{
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- focus states ---------- */
+  a:focus-visible, button:focus-visible{
+    outline: 3px solid var(--navy);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position: sticky;
+    top:0;
+    z-index: 50;
+    background: rgba(246,241,230,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--cream-line);
+  }
+
+  nav.wrap{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  .brand-link{
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    cursor: pointer;
+  }
+
+  .brand-photo{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--lilac);
+    flex-shrink: 0;
+  }
+
+  .brand{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size: 1.1rem;
+    letter-spacing: 0.01em;
+    color: var(--navy);
+  }
+
+  .brand span{
+    display:block;
+    font-family:'Inter', sans-serif;
+    font-weight:500;
+    font-size:0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--black-soft);
+    margin-top:2px;
+  }
+
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap: 30px;
+    list-style:none;
+  }
+
+  .nav-links a{
+    font-size:0.92rem;
+    font-weight:600;
+    color: var(--black);
+    padding: 6px 2px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .nav-links a:hover{
+    border-bottom-color: var(--lilac-dark);
+  }
+
+  .nav-cv{
+    background: var(--navy);
+    color: var(--cream) !important;
+    padding: 9px 18px !important;
+    border-radius: 999px;
+    font-size: 0.85rem !important;
+    border-bottom: none !important;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .nav-cv:hover{ background: var(--navy-dark); transform: translateY(-1px); }
+
+  .menu-toggle{
+    display:none;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding: 4px;
+  }
+  .menu-toggle span{
+    display:block;
+    width:24px;
+    height:2px;
+    background: var(--navy);
+    margin: 5px 0;
+    transition: 0.25s;
+  }
+
+  /* ---------- SECTIONS GENERAL ---------- */
+  section{
+    padding: 88px 0;
+    border-bottom: 1px solid var(--cream-line);
+  }
+  section:last-of-type{ border-bottom:none; }
+
+  .eyebrow{
+    display:inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--navy);
+    background: var(--lilac);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+    font-family:'Inter', sans-serif;
+  }
+
+  h2.section-title{
+    font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 14px;
+    max-width: 640px;
+  }
+
+  .section-lead{
+    color: var(--black-soft);
+    font-size: 1.02rem;
+    max-width: 560px;
+    margin-bottom: 44px;
+  }
+
+  /* ---------- HERO / ABOUT ---------- */
+  #about{
+    padding-top: 72px;
+  }
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 56px;
+    align-items:center;
+  }
+
+  .hero-title{
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.08;
+    color: var(--navy);
+    margin-bottom: 20px;
+  }
+
+  .hero-title em{
+    font-style: normal;
+    color: var(--black);
+    background: linear-gradient(180deg, transparent 62%, var(--lilac) 62%);
+  }
+
+  .hero-text{
+    font-size: 1.08rem;
+    color: var(--black-soft);
+    max-width: 520px;
+    margin-bottom: 32px;
+  }
+
+  .hero-actions{
+    display:flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor:pointer;
+    border: 2px solid transparent;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn-primary{
+    background: var(--navy);
+    color: var(--cream);
+  }
+  .btn-primary:hover{ background: var(--navy-dark); transform: translateY(-1px); }
+
+  .btn-secondary{
+    background: var(--lilac);
+    color: var(--navy);
+  }
+  .btn-secondary:hover{ background: var(--lilac-dark); transform: translateY(-1px); }
+
+  .btn-outline{
+    background: transparent;
+    color: var(--navy);
+    border-color: var(--navy);
+  }
+  .btn-outline:hover{ background: var(--navy); color: var(--cream); }
+
+  /* signature: vitals strip */
+  .vitals{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--cream-line);
+    border-radius: 14px;
+    background: var(--cream-alt);
+    overflow:hidden;
+  }
+  .vital{
+    padding: 20px 18px;
+    border-right: 1px solid var(--cream-line);
+  }
+  .vital:last-child{ border-right:none; }
+  .vital .label{
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black-soft);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .vital .value{
+    font-family:'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .hero-card{
+    background: var(--navy);
+    color: var(--cream);
+    border-radius: 20px;
+    padding: 34px 30px;
+    position: relative;
+  }
+  .hero-card .tag{
+    display:inline-block;
+    background: var(--lilac);
+    color: var(--navy);
+    font-size: 0.68rem;
+    font-weight:700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .hero-card h3{
+    font-size: 1.3rem;
+    margin-bottom: 14px;
+    line-height:1.3;
+  }
+  .hero-card ul{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap: 12px;
+  }
+  .hero-card ul li{
+    font-size: 0.92rem;
+    color: #E9E2F5;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+  }
+  .hero-card ul li::before{
+    content:"";
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background: var(--lilac);
+    margin-top:8px;
+    flex-shrink:0;
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-wrap{
+    margin-top: 60px;
+  }
+  .skills-heading{
+    font-size: 1.05rem;
+    font-weight:700;
+    color: var(--navy);
+    margin-bottom: 18px;
+    font-family:'Fraunces', serif;
+  }
+  .skill-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .skill-chip{
+    background: var(--cream-alt);
+    border: 1px solid var(--cream-line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--black);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .skill-chip::before{
+    content:"";
+    width:8px;
+    height:8px;
+    border-radius:2px;
+    background: var(--lilac-dark);
+    flex-shrink:0;
+  }
+
+  .tools-line{
+    margin-top: 28px;
+    font-size: 0.92rem;
+    color: var(--black-soft);
+  }
+  .tools-line strong{ color: var(--black); }
+
+  /* ---------- SERVICES ---------- */
+  #services{ background: var(--cream-alt); }
+
+  .pricing-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  .price-card{
+    background: var(--cream);
+    border: 1px solid var(--cream-line);
+    border-radius: 18px;
+    padding: 30px 26px;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+  }
+
+  .price-card.featured{
+    border: 2px solid var(--navy);
+  }
+
+  .price-card .badge{
+    position:absolute;
+    top:-13px;
+    right: 24px;
+    background: var(--navy);
+    color: var(--cream);
+    font-size: 0.65rem;
+    font-weight:700;
+    letter-spacing: 0.08em;
+    text-transform:uppercase;
+    padding: 6px 12px;
+    border-radius: 999px;
+  }
+
+  .price-card h3{
+    font-size: 1.2rem;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .price-card .price{
+    font-family:'Fraunces', serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--black);
+    margin: 10px 0 4px;
+  }
+  .price-card .price span{
+    font-family:'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--black-soft);
+  }
+  .price-card .price-desc{
+    font-size: 0.85rem;
+    color: var(--black-soft);
+    margin-bottom: 22px;
+  }
+  .price-card ul{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap: 12px;
+    margin-bottom: 28px;
+    flex-grow:1;
+  }
+  .price-card ul li{
+    font-size: 0.9rem;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+  }
+  .price-card ul li::before{
+    content:"✓";
+    color: var(--lilac-dark);
+    font-weight:700;
+    flex-shrink:0;
+  }
+
+  .hourly-note{
+    margin-top: 30px;
+    background: var(--navy);
+    color: var(--cream);
+    border-radius: 14px;
+    padding: 20px 26px;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap: 14px;
+  }
+  .hourly-note p{ font-size: 0.92rem; color: #E9E2F5; }
+  .hourly-note strong{ color: var(--cream); font-family:'Fraunces', serif; font-size:1.05rem; }
+
+  /* ---------- WORK ---------- */
+  .work-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .work-card{
+    border: 1px solid var(--cream-line);
+    border-radius: 16px;
+    overflow:hidden;
+    background: var(--cream-alt);
+    display:flex;
+    flex-direction:column;
+  }
+  .work-thumb{
+    height: 140px;
+    background: var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--lilac);
+    font-family:'Fraunces', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform:uppercase;
+    text-align:center;
+    padding: 14px;
+  }
+  .work-body{
+    padding: 22px 22px 26px;
+    display:flex;
+    flex-direction:column;
+    flex-grow:1;
+  }
+  .work-body h3{
+    font-size: 1.05rem;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .work-body p{
+    font-size: 0.88rem;
+    color: var(--black-soft);
+    margin-bottom: 18px;
+    flex-grow:1;
+  }
+  .work-link{
+    font-size: 0.85rem;
+    font-weight:700;
+    color: var(--navy);
+    border-bottom: 2px solid var(--lilac);
+    align-self:flex-start;
+  }
+
+  /* ---------- CONTACT ---------- */
+  #contact{ border-bottom:none; }
+
+  .contact-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items:start;
+  }
+
+  .contact-card{
+    background: var(--navy);
+    color: var(--cream);
+    border-radius: 20px;
+    padding: 40px 34px;
+  }
+  .contact-card h3{
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  .contact-card p{
+    color: #C9BEE0;
+    font-size: 0.95rem;
+    margin-bottom: 28px;
+  }
+  .contact-line{
+    display:flex;
+    flex-direction:column;
+    gap: 18px;
+    margin-bottom: 30px;
+  }
+  .contact-item{
+    display:flex;
+    gap: 14px;
+    align-items:center;
+  }
+  .contact-item .ico{
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--lilac);
+    color: var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size: 0.85rem;
+    flex-shrink:0;
+  }
+  .contact-item a, .contact-item span{
+    font-size: 0.98rem;
+    font-weight:600;
+    color: var(--cream);
+  }
+  .contact-item .sub{
+    display:block;
+    font-size: 0.72rem;
+    font-weight:500;
+    color: #B7ABD3;
+    margin-top: 2px;
+  }
+
+  .availability-card{
+    border: 1px solid var(--cream-line);
+    border-radius: 20px;
+    padding: 36px 32px;
+    background: var(--cream-alt);
+    height:100%;
+  }
+  .availability-card h3{
+    font-size: 1.15rem;
+    color: var(--navy);
+    margin-bottom: 18px;
+  }
+  .avail-row{
+    display:flex;
+    justify-content:space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--cream-line);
+    font-size: 0.9rem;
+  }
+  .avail-row:last-of-type{ border-bottom:none; }
+  .avail-row span:first-child{ color: var(--black-soft); }
+  .avail-row span:last-child{ font-weight:700; color: var(--black); }
+
+  footer{
+    text-align:center;
+    padding: 30px 0 40px;
+    font-size: 0.8rem;
+    color: var(--black-soft);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px){
+    .hero-grid, .contact-grid{ grid-template-columns: 1fr; }
+    .pricing-grid, .work-grid{ grid-template-columns: repeat(2, 1fr); }
+    .skill-grid{ grid-template-columns: repeat(2, 1fr); }
+    .price-card.featured{ order:-1; }
+  }
+
+  @media (max-width: 640px){
+    section{ padding: 60px 0; }
+    .wrap{ padding: 0 20px; }
+
+    .brand-photo{ width: 34px; height: 34px; }
+    .brand{ font-size: 0.95rem; }
+
+    .menu-toggle{ display:block; }
+    .nav-links{
+      position: fixed;
+      top: 68px;
+      left:0;
+      right:0;
+      background: var(--cream);
+      border-bottom: 1px solid var(--cream-line);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px 24px 26px;
+      gap: 16px;
+      transform: translateY(-130%);
+      transition: transform 0.25s ease;
+    }
+    .nav-links.open{ transform: translateY(0); }
+    .nav-cv{ align-self:flex-start; }
+
+    .vitals{ grid-template-columns: 1fr; }
+    .vital{ border-right:none; border-bottom: 1px solid var(--cream-line); }
+    .vital:last-child{ border-bottom:none; }
+
+    .skill-grid{ grid-template-columns: 1fr 1fr; }
+    .pricing-grid, .work-grid{ grid-template-columns: 1fr; }
+    .hourly-note{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<header id="top">
+  <nav class="wrap">
+    <a href="#top" class="brand-link" aria-label="Back to top">
+      <img src="profile.jpg" alt="Oyindamola Olajide" class="brand-photo">
+      <span class="brand">
+        Oyindamola Olajide
+        <span>Medical Virtual Assistant</span>
+      </span>
+    </a>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" id="menuToggle">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About Me</a></li>
+      <li><a href="#services">Services & Pricing</a></li>
+      <li><a href="#work">My Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="cv.pdf" class="nav-cv" download>Download CV</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">About Me</span>
+          <h1 class="hero-title">Reliable, fast, and <em>HIPAA-aware</em> support for busy medical practices.</h1>
+          <p class="hero-text">I'm Oyindamola Adesola Olajide, a Virtual Assistant trained to support healthcare providers with secure, patient-facing administrative work. Over the past two months I've built hands-on skill in patient intake, HIPAA-compliant communication, scheduling, and data organization — so your practice runs smoothly while you focus on patient care.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">Get In Touch</a>
+            <a href="cv.pdf" class="btn btn-secondary" download>Download CV</a>
+          </div>
+          <div class="vitals">
+            <div class="vital">
+              <div class="label">Response Time</div>
+              <div class="value">Under 2 hrs</div>
+            </div>
+            <div class="vital">
+              <div class="label">HIPAA Aware</div>
+              <div class="value">Yes</div>
+            </div>
+            <div class="vital">
+              <div class="label">Availability</div>
+              <div class="value">Mon – Sat</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <span class="tag">Why work with me</span>
+          <h3>Built for the details healthcare teams can't afford to miss.</h3>
+          <ul>
+            <li>Confidentiality-first approach to every patient interaction and record.</li>
+            <li>Fast turnaround on intake forms, scheduling, and follow-ups.</li>
+            <li>Comfortable with data entry, reporting, and light data analysis.</li>
+            <li>Clear, professional communication with patients and staff alike.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="skills-wrap">
+        <div class="skills-heading">Skills built over the past 2 months</div>
+        <div class="skill-grid">
+          <div class="skill-chip">HIPAA-compliant communication</div>
+          <div class="skill-chip">Patient intake form creation</div>
+          <div class="skill-chip">Appointment scheduling & calendar management</div>
+          <div class="skill-chip">Medical data entry & records organization</div>
+          <div class="skill-chip">Insurance verification support</div>
+          <div class="skill-chip">Basic data analysis & reporting</div>
+          <div class="skill-chip">Email & inbox management</div>
+          <div class="skill-chip">Patient follow-up & reminder systems</div>
+          <div class="skill-chip">Transcription & documentation</div>
+          <div class="skill-chip">Professional phone & chat etiquette</div>
+          <div class="skill-chip">Virtual assistant portfolio building</div>
+          <div class="skill-chip">Time management & fast turnaround</div>
+        </div>
+        <p class="tools-line"><strong>Tools I use:</strong> Google Workspace (Docs, Sheets, Calendar), Calendly, Zoom, Excel, Trello/Asana, Canva</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <span class="eyebrow">Services & Pricing</span>
+      <h2 class="section-title">Tiered support that fits your practice, from occasional help to full-time coverage.</h2>
+      <p class="section-lead">Every package includes HIPAA-aware handling of patient information. Pick a tier below, or reach out to build a custom plan around your workload.</p>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>Starter</h3>
+          <div class="price">₦45,000 <span>/ month</span></div>
+          <p class="price-desc">For solo practitioners needing light, reliable admin support.</p>
+          <ul>
+            <li>Up to 10 hours/week</li>
+            <li>Email & calendar management</li>
+            <li>Basic data entry</li>
+            <li>Patient intake form creation</li>
+            <li>HIPAA-compliant communication</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline">Choose Starter</a>
+        </div>
+
+        <div class="price-card featured">
+          <span class="badge">Most Popular</span>
+          <h3>Professional</h3>
+          <div class="price">₦85,000 <span>/ month</span></div>
+          <p class="price-desc">For clinics that need consistent scheduling and patient-facing support.</p>
+          <ul>
+            <li>Up to 20 hours/week</li>
+            <li>Everything in Starter</li>
+            <li>Appointment scheduling & reminders</li>
+            <li>Insurance verification support</li>
+            <li>Data analysis & weekly reporting</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">Choose Professional</a>
+        </div>
+
+        <div class="price-card">
+          <h3>Premium</h3>
+          <div class="price">₦150,000 <span>/ month</span></div>
+          <p class="price-desc">Full practice support for high-volume or multi-provider teams.</p>
+          <ul>
+            <li>Up to 35 hours/week</li>
+            <li>Everything in Professional</li>
+            <li>Full patient communication management</li>
+            <li>Records organization & audits</li>
+            <li>Priority turnaround & dedicated hours</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline">Choose Premium</a>
+        </div>
+      </div>
+
+      <div class="hourly-note">
+        <p>Need something smaller? <strong>Hourly & one-off tasks available from ₦3,500/hour.</strong></p>
+        <a href="#contact" class="btn btn-secondary">Ask About a Custom Plan</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <span class="eyebrow">My Work</span>
+      <h2 class="section-title">A look at recent projects and practice work.</h2>
+      <p class="section-lead">Selected samples from my training and practice work as an MVA. Full samples and references available on request.</p>
+
+      <div class="work-grid">
+        <div class="work-card">
+          <div class="work-thumb">Patient Intake<br>Form System</div>
+          <div class="work-body">
+            <h3>Patient Intake Form System</h3>
+            <p>Designed a digital patient intake workflow covering personal details, medical history, and consent — built for clarity and HIPAA-conscious handling.</p>
+            <a href="#contact" class="work-link">Request Sample</a>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-thumb">Scheduling &<br>Reminder Workflow</div>
+          <div class="work-body">
+            <h3>Appointment Scheduling Workflow</h3>
+            <p>Set up a calendar and reminder system to reduce missed appointments and keep patient communication timely and professional.</p>
+            <a href="#contact" class="work-link">Request Sample</a>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-thumb">Practice Data<br>Report</div>
+          <div class="work-body">
+            <h3>Data Analysis & Reporting</h3>
+            <p>Organized and summarized practice data into a simple weekly report, highlighting trends useful for day-to-day decision-making.</p>
+            <a href="#contact" class="work-link">Request Sample</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <span class="eyebrow">Contact Me</span>
+      <h2 class="section-title">Let's talk about how I can support your practice.</h2>
+      <p class="section-lead">Reach out directly, or download my CV for a full overview of my background.</p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Get In Touch</h3>
+          <p>I typically respond within 2 hours during my available days.</p>
+          <div class="contact-line">
+            <div class="contact-item">
+              <div class="ico">@</div>
+              <div>
+                <a href="mailto:olajide.jayhoney@gmail.com">olajide.jayhoney@gmail.com</a>
+                <span class="sub">Email</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="ico">Tel</div>
+              <div>
+                <a href="tel:+2348062730658">0806 273 0658</a>
+                <span class="sub">Phone / WhatsApp</span>
+              </div>
+            </div>
+          </div>
+          <a href="cv.pdf" class="btn btn-secondary" download>Download CV</a>
+        </div>
+
+        <div class="availability-card">
+          <h3>Availability</h3>
+          <div class="avail-row"><span>Days</span><span>Monday – Saturday</span></div>
+          <div class="avail-row"><span>Response time</span><span>Under 2 hours</span></div>
+          <div class="avail-row"><span>Time zone</span><span>WAT (GMT+1)</span></div>
+          <div class="avail-row"><span>Preferred contact</span><span>Email or WhatsApp</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Oyindamola Adesola Olajide — Medical Virtual Assistant. Built with care for patient-first support.
+  </div>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  menuToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+
+</body>
+</html>
